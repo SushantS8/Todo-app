@@ -1,0 +1,33 @@
+<!-- templates/task_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block content %}
+    <h2 class="text-xl font-semibold text-center mb-4">Add a New Task</h2>
+
+    <form method="POST" action="{% url 'add_task' %}" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-gray-700 font-semibold">Task Title</label>
+            <input type="text" name="title" placeholder="Enter task..." required 
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold">Due Date</label>
+            <input type="date" name="due_date" 
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <button type="submit" 
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition duration-300">
+            ➕ Add Task
+        </button>
+    </form>
+
+    <!-- Link to View Tasks -->
+    <div class="text-center mt-4">
+        <a href="{% url 'task_list' %}" class="text-blue-500 hover:underline">View My Tasks →</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!-- templates/task_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}My To-Do List{% endblock %}
+
+{% block content %}
+    <h1 class="text-2xl font-bold text-center mb-4">My To-Do List</h1>
+
+    <ul class="divide-y divide-gray-300">
+        {% for task in tasks %}
+            <li class="flex justify-between items-center py-3">
+                <div>
+                    <span class="{% if task.completed %} line-through text-gray-500 {% endif %} font-medium">
+                        {{ task.title }}
+                    </span>
+                    <span class="text-sm text-gray-500 ml-2">({{ task.due_date }})</span>
+                </div>
+
+                <div class="space-x-2">
+                    <!-- Toggle Completion -->
+                    <a href="{% url 'toggle_task' task.id %}" 
+                       class="text-green-500 hover:underline">✔ Toggle</a>
+
+                    <!-- Edit Task -->
+                    <a href="{% url 'edit_task' task.id %}" 
+                       class="text-yellow-500 hover:underline">✏ Edit</a>
+
+                    <!-- Delete Task -->
+                    <a href="{% url 'delete_task' task.id %}" 
+                       class="text-red-500 hover:underline">❌ Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="text-center text-gray-500 py-3">
+                No tasks yet. <a href="{% url 'add_task' %}" class="text-blue-500 underline">Add one here</a>!
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Link to Add Tasks -->
+    <div class="text-center mt-6">
+        <a href="{% url 'add_task' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg">
+            ➕ Add New Task
+        </a>
+    </div>
+{% endblock %}

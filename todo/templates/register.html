@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <h2 class="text-2xl font-bold text-center text-blue-600">Register</h2>
+
+    <form method="POST" class="mt-4 space-y-3">
+        {% csrf_token %}
+
+        <!-- Render form fields -->
+        <div class="space-y-4">
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="block font-medium">{{ field.label }}</label>
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p> <!-- Make help text smaller -->
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-xs text-red-500 mt-1">
+                            {% for error in field.errors %}
+                                {{ error }}<br> <!-- Make error messages smaller -->
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+            Register
+        </button>
+    </form>
+
+    <p class="text-center mt-2 text-sm">
+        Already have an account?
+        <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a>
+    </p>
+{% endblock %}

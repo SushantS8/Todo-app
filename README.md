@@ -1,0 +1,1 @@
+This is a simple Todo-app in Django where the user can add, edit and delete the task.
