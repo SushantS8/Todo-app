@@ -38,7 +38,33 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo',
+
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',  # For logout (Blacklisting refresh token)
+    'drf_yasg',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
+from datetime import timedelta
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),        # Access Token valid for 30 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),           # Refresh Token valid for 1 day
+
+    'ROTATE_REFRESH_TOKENS': True,                         # Generates a new refresh token when refreshing
+    'BLACKLIST_AFTER_ROTATION': True,                      # Blacklists old refresh token on rotation
+
+    'AUTH_HEADER_TYPES': ('Bearer',),                      # Expected Header format: Bearer <Token>
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
