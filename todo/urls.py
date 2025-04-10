@@ -13,6 +13,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,  # For Login (Generate Access & Refresh Token)
     TokenRefreshView,     # For Refreshing Token
 )
+from .api_views import TaskListCreateAPIView, TaskDetailAPIView
 
 urlpatterns = [
     # ---------------- Web URLs ----------------
@@ -28,8 +29,10 @@ urlpatterns = [
     path('toggle/<int:task_id>/', views.toggle_task, name='toggle_task'),
 
     # API URLs
-    path('api/tasks/', api_views.task_list_create, name='api_task_list_create'),
-    path('api/tasks/<int:pk>', api_views.task_detail, name='api_task_detail'),
+    # path('api/tasks/', api_views.task_list_create, name='api_task_list_create'),
+    # path('api/tasks/<int:pk>', api_views.task_detail, name='api_task_detail'),
+    path('api/tasks/', TaskListCreateAPIView.as_view(), name='task-list-create'),
+    path('api/tasks/<int:pk>/', TaskDetailAPIView.as_view(), name='task-detail'),
 
     # ---------------- JWT Auth APIs ----------------
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),      # Login - Generate Tokens

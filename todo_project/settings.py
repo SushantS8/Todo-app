@@ -37,19 +37,43 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todo',
-
+    
+     # Third-party apps
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',  # For logout (Blacklisting refresh token)
     'drf_yasg',
+
+     # Local apps
+     'todo',
 ]
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ]
+# }
+
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+             'type': 'apiKey',
+             'name': 'Authorization',
+             'in': 'header',
+             'description': 'JWT Authorization header using the Bearer scheme. Example: "Bearer <your access token>"',
+        }
+    },
+}
+
 
 from datetime import timedelta
 
